@@ -1,16 +1,19 @@
-# C++ Quant Lab
+# C++ Quant Lab v2
 
-A publishable single-page website for learning C++ for quantitative finance.
+A detailed interactive learning website for C++ quantitative finance.
+
+## What's included
+- General C++ roadmap with expandable detailed lessons
+- Quantitative analysis tactics with projects
+- Common quant models and algorithms
+- Per-module quizzes
+- Progress tracking with localStorage
+- Monte Carlo option pricing simulator
+- Return and volatility calculator
+- Glassmorphism trading-terminal UI
 
 ## Files
-- `index.html`
-- `styles.css`
-- `script.js`
-
-## Publish on GitHub Pages
-1. Create a GitHub repository.
-2. Upload these three files.
-3. Go to Settings → Pages.
-4. Choose Deploy from a branch.
-5. Select `main` and `/root`.
-6. Open your GitHub Pages URL.
+Upload these to your published GitHub Pages repository:
+- index.html
+- styles.css
+- script.js
