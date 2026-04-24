@@ -1,19 +1,18 @@
-# C++ Quant Lab v2
+# Quant Simulator Hub
 
-A detailed interactive learning website for C++ quantitative finance.
+A multi-simulator quantitative finance dashboard.
 
-## What's included
-- General C++ roadmap with expandable detailed lessons
-- Quantitative analysis tactics with projects
-- Common quant models and algorithms
-- Per-module quizzes
-- Progress tracking with localStorage
-- Monte Carlo option pricing simulator
-- Return and volatility calculator
-- Glassmorphism trading-terminal UI
+## Simulators
+1. Risk Analyzer
+2. Options Pricing Lab
+3. Portfolio Optimizer
+4. Strategy Backtester
+5. Scenario Stress Simulator
 
-## Files
-Upload these to your published GitHub Pages repository:
+## Upload to GitHub Pages
+Upload:
 - index.html
 - styles.css
 - script.js
+
+Then refresh your GitHub Pages site.

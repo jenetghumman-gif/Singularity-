@@ -1,161 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>C++ Quant Lab | Textbook Learning Site</title>
-  <meta name="description" content="A textbook-level interactive C++ quantitative finance learning site with lessons, visualizations, quizzes, projects, and simulations.">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quant Simulator Hub | C++ Inspired Finance Lab</title>
+  <meta name="description" content="A multi-simulator quantitative finance dashboard with risk analytics, Monte Carlo pricing, portfolio optimization, backtesting, and C++ implementation notes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@600;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-<div class="noise"></div><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="orb orb-three"></div>
-<nav class="nav glass"><a class="brand" href="index.html"><span class="brand-mark">Q++</span><span>C++ Quant Lab</span></a><div class="nav-links"><a href="#lessons">Lessons</a><a href="#labs">Labs</a><a href="#structure">Structure</a></div></nav>
+  <div class="noise"></div>
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
 
-<header class="hero">
-  <section>
-    <p class="eyebrow">Textbook-level interactive course</p>
-    <h1>C++ Quant Lab, rebuilt as a real learning site.</h1>
-    <p class="hero-text">This version is structured like a digital textbook: separate lesson pages, long-form explanations, formulas, code, visual diagrams, interactive labs, quizzes, progress tracking, and project roadmaps. It is designed to teach both general C++ and C++ for quantitative analysis, not just summarize it.</p>
-    <div class="hero-actions"><a class="btn primary" href="#lessons">Start lessons</a><a class="btn secondary" href="monte-carlo.html">Jump to Monte Carlo</a></div>
-    <div class="signal-row"><span>6 textbook lessons</span><span>3 interactive labs</span><span>progress tracking</span><span>quizzes</span><span>project builds</span></div>
-  </section>
-  <section class="hero-panel glass">
-    <div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">course_progress</span></div>
-    <pre><code>Track 01: General C++
-  - foundations
-  - memory and vectors
-  - project engineering
-
-Track 02: Quant tactics
-  - returns and risk
-  - VaR / CVaR
-  - backtesting
-
-Track 03: Models & algorithms
-  - Monte Carlo
-  - Black-Scholes
-  - Greeks
-  - portfolio optimization</code></pre>
-    <div class="metric-strip"><div><strong class="progress-number">0%</strong><span>saved progress</span></div><div><strong>6</strong><span>long lessons</span></div><div><strong>18+</strong><span>project tasks</span></div></div>
-    <div class="progress"><div class="progress-fill"></div></div>
-  </section>
-</header>
-
-<main>
-<section id="lessons" class="section">
-  <div class="section-heading"><p class="eyebrow">Course library</p><h2>Open a full lesson</h2><p>Each page includes deep explanations, step-by-step implementation guidance, diagrams, formulas, quizzes, and a project roadmap.</p></div>
-  <div class="grid">
-<article class="card glass">
-  <span class="card-num">01</span>
-  <p class="eyebrow">C++ Core · Beginner</p>
-  <h3>C++ Foundations for Quant Work</h3>
-  <p>From first program to reliable numerical functions</p>
-  <div class="card-footer">
-    <span class="pill">Textbook lesson · 35–50 min</span>
-    <a class="link-btn" href="cpp-foundations.html">Open lesson</a>
-  </div>
-</article>
-
-
-<article class="card glass">
-  <span class="card-num">02</span>
-  <p class="eyebrow">Quant Tactics · Core</p>
-  <h3>Returns, Volatility, Drawdown, and Risk Metrics</h3>
-  <p>The measurement layer behind almost every quant workflow</p>
-  <div class="card-footer">
-    <span class="pill">Textbook lesson · 50–70 min</span>
-    <a class="link-btn" href="returns-risk.html">Open lesson</a>
-  </div>
-</article>
-
-
-<article class="card glass">
-  <span class="card-num">03</span>
-  <p class="eyebrow">Models & Algorithms · Intermediate</p>
-  <h3>Monte Carlo Simulation for Option Pricing</h3>
-  <p>Random paths, discounted payoffs, sampling error, and C++ implementation</p>
-  <div class="card-footer">
-    <span class="pill">Textbook lesson · 75–100 min</span>
-    <a class="link-btn" href="monte-carlo.html">Open lesson</a>
-  </div>
-</article>
-
-
-<article class="card glass">
-  <span class="card-num">04</span>
-  <p class="eyebrow">Models & Algorithms · Intermediate</p>
-  <h3>Black-Scholes and Greeks</h3>
-  <p>Closed-form option pricing and sensitivity analysis</p>
-  <div class="card-footer">
-    <span class="pill">Textbook lesson · 70–90 min</span>
-    <a class="link-btn" href="black-scholes-greeks.html">Open lesson</a>
-  </div>
-</article>
-
-
-<article class="card glass">
-  <span class="card-num">05</span>
-  <p class="eyebrow">Risk & Strategy · Applied</p>
-  <h3>VaR, CVaR, and Backtesting</h3>
-  <p>Tail risk, historical simulation, and strategy evaluation</p>
-  <div class="card-footer">
-    <span class="pill">Textbook lesson · 80–110 min</span>
-    <a class="link-btn" href="var-cvar-backtesting.html">Open lesson</a>
-  </div>
-</article>
-
-
-<article class="card glass">
-  <span class="card-num">06</span>
-  <p class="eyebrow">Models & Algorithms · Intermediate</p>
-  <h3>Portfolio Optimization and Efficient Frontier</h3>
-  <p>Weights, covariance matrices, Sharpe ratio, and random portfolio search</p>
-  <div class="card-footer">
-    <span class="pill">Textbook lesson · 80–120 min</span>
-    <a class="link-btn" href="portfolio-optimization.html">Open lesson</a>
-  </div>
-</article>
-</div>
-</section>
-
-<section id="labs" class="section lab-section glass">
-  <div>
-    <p class="eyebrow">Interactive lab 01</p><h2>Return and volatility calculator</h2>
-    <p>Use this to connect the textbook concepts to live calculations. Enter a price series, then inspect returns, sample volatility, annualized volatility, and drawdown.</p>
-    <textarea id="prices">100, 102, 101, 105, 107, 104, 110</textarea>
-    <div class="hero-actions"><button class="btn primary" id="runCalc">Calculate</button></div>
-  </div>
-  <div class="terminal glass"><div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">risk_output</span></div><div id="calcOutput" class="output"></div></div>
-</section>
-
-<section class="section lab-section glass">
-  <div>
-    <p class="eyebrow">Interactive lab 02</p><h2>Monte Carlo option pricer</h2>
-    <p>Simulate European call prices and compare the result to Black-Scholes under the same assumptions.</p>
-    <div class="controls">
-      <label>Spot S₀ <input id="mcSpot" type="number" value="100"></label>
-      <label>Strike K <input id="mcStrike" type="number" value="105"></label>
-      <label>Rate r <input id="mcRate" type="number" value="0.05" step="0.01"></label>
-      <label>Volatility σ <input id="mcVol" type="number" value="0.22" step="0.01"></label>
-      <label>Maturity T <input id="mcTime" type="number" value="1" step="0.25"></label>
-      <label>Paths <input id="mcPaths" type="number" value="20000" step="1000"></label>
+  <nav class="nav glass">
+    <a class="brand" href="#top"><span class="brand-mark">QΣ</span><span>Quant Simulator Hub</span></a>
+    <div class="nav-links">
+      <a href="#risk">Risk</a>
+      <a href="#options">Options</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#backtest">Backtest</a>
+      <a href="#learn">C++ Layer</a>
     </div>
-    <button class="btn primary" id="runMonteCarlo">Run Monte Carlo</button>
-  </div>
-  <div class="terminal glass"><div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">mc_output</span></div><div id="mcOutput" class="output"></div></div>
-</section>
+  </nav>
 
-<section id="structure" class="section lab-section glass">
-  <div>
-    <p class="eyebrow">Interactive lab 03</p><h2>Portfolio frontier approximation</h2>
-    <p>Generate random portfolios for three simplified assets and identify the minimum-volatility and maximum-Sharpe combinations.</p>
-    <button class="btn primary" id="runFrontier">Generate portfolios</button>
-  </div>
-  <div class="terminal glass"><div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">frontier_output</span></div><div id="frontierOutput" class="output"></div></div>
-</section>
-</main>
-<footer>Built as a publishable multi-page course site. Replace your current GitHub Pages files with this version.</footer>
-<script src="script.js"></script>
+  <header id="top" class="hero">
+    <section>
+      <p class="eyebrow">Multi-simulator finance lab</p>
+      <h1>One dashboard. Five quant simulators.</h1>
+      <p class="hero-text">
+        A portfolio-worthy analytics hub for students, quant candidates, and finance teams:
+        risk diagnostics, option pricing, Monte Carlo scenarios, portfolio optimization, and strategy backtesting —
+        all connected to C++ implementation logic.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#simulators">Open simulators</a>
+        <a class="btn secondary" href="#learn">View C++ build map</a>
+      </div>
+      <div class="signal-row">
+        <span>VaR / CVaR</span>
+        <span>Monte Carlo</span>
+        <span>Black-Scholes</span>
+        <span>Efficient Frontier</span>
+        <span>Backtesting</span>
+      </div>
+    </section>
+
+    <section class="hero-panel glass">
+      <div class="panel-top">
+        <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+        <span class="terminal-title">live_quant_dashboard</span>
+      </div>
+      <div class="hero-metrics">
+        <div><span>Risk Score</span><strong id="heroRisk">—</strong></div>
+        <div><span>MC Price</span><strong id="heroMc">—</strong></div>
+        <div><span>Max Sharpe</span><strong id="heroSharpe">—</strong></div>
+        <div><span>Backtest Return</span><strong id="heroReturn">—</strong></div>
+      </div>
+      <canvas id="heroCanvas" width="520" height="260"></canvas>
+    </section>
+  </header>
+
+  <main id="simulators">
+    <section class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Simulator suite</p>
+        <h2>Choose a quant problem</h2>
+        <p>Each simulator is a real tool with inputs, outputs, interpretation, and C++ implementation notes.</p>
+      </div>
+
+      <div class="tool-grid">
+        <a class="tool-card glass" href="#risk">
+          <span class="card-num">01</span>
+          <h3>Risk Analyzer</h3>
+          <p>Returns, volatility, max drawdown, VaR, CVaR, and a readable risk score.</p>
+        </a>
+        <a class="tool-card glass" href="#options">
+          <span class="card-num">02</span>
+          <h3>Options Lab</h3>
+          <p>Black-Scholes pricing, Greeks, and Monte Carlo comparison.</p>
+        </a>
+        <a class="tool-card glass" href="#portfolio">
+          <span class="card-num">03</span>
+          <h3>Portfolio Optimizer</h3>
+          <p>Random efficient frontier search, max Sharpe, and minimum volatility portfolios.</p>
+        </a>
+        <a class="tool-card glass" href="#backtest">
+          <span class="card-num">04</span>
+          <h3>Strategy Backtester</h3>
+          <p>Moving-average crossover strategy with PnL, Sharpe, drawdown, and costs.</p>
+        </a>
+        <a class="tool-card glass" href="#scenario">
+          <span class="card-num">05</span>
+          <h3>Scenario Simulator</h3>
+          <p>Shock volatility, returns, and drawdowns to see stress outcomes.</p>
+        </a>
+      </div>
+    </section>
+
+    <section id="risk" class="section simulator glass">
+      <div class="sim-copy">
+        <p class="eyebrow">Simulator 01</p>
+        <h2>Risk Analyzer</h2>
+        <p>
+          Paste a price series to generate core risk metrics. This is useful for evaluating a stock,
+          strategy equity curve, crypto asset, or portfolio value series.
+        </p>
+        <textarea id="riskPrices">100, 102, 101, 105, 107, 104, 110, 108, 112, 109, 115, 117, 113, 119</textarea>
+        <div class="hero-actions">
+          <button class="btn primary" id="runRisk">Analyze risk</button>
+          <button class="btn secondary" data-load="calm">Load calm market</button>
+          <button class="btn secondary" data-load="volatile">Load volatile market</button>
+        </div>
+        <div class="learn-box">
+          <h4>Why this matters</h4>
+          <p>Businesses use this type of tool to monitor portfolio downside, compare assets, and quickly explain risk to stakeholders.</p>
+        </div>
+      </div>
+      <div class="sim-output">
+        <div class="terminal glass"><div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">risk_report</span></div><div id="riskOutput" class="output"></div></div>
+        <canvas id="riskChart" width="620" height="260"></canvas>
+      </div>
+    </section>
+
+    <section id="options" class="section simulator glass">
+      <div class="sim-copy">
+        <p class="eyebrow">Simulator 02</p>
+        <h2>Options Pricing Lab</h2>
+        <p>
+          Price a European call using Black-Scholes, estimate the same option with Monte Carlo,
+          and inspect key Greeks.
+        </p>
+        <div class="controls">
+          <label>Spot S₀ <input id="optSpot" type="number" value="100"></label>
+          <label>Strike K <input id="optStrike" type="number" value="105"></label>
+          <label>Rate r <input id="optRate" type="number" value="0.05" step="0.01"></label>
+          <label>Volatility σ <input id="optVol" type="number" value="0.22" step="0.01"></label>
+          <label>Maturity T <input id="optTime" type="number" value="1" step="0.25"></label>
+          <label>MC paths <input id="optPaths" type="number" value="20000" step="1000"></label>
+        </div>
+        <button class="btn primary" id="runOptions">Price option</button>
+        <div class="learn-box">
+          <h4>C++ build note</h4>
+          <p>In C++, this becomes two modules: a closed-form Black-Scholes function and a Monte Carlo engine using <code>std::mt19937</code>.</p>
+        </div>
+      </div>
+      <div class="sim-output">
+        <div class="terminal glass"><div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">options_report</span></div><div id="optionsOutput" class="output"></div></div>
+        <canvas id="optionsChart" width="620" height="260"></canvas>
+      </div>
+    </section>
+
+    <section id="portfolio" class="section simulator glass">
+      <div class="sim-copy">
+        <p class="eyebrow">Simulator 03</p>
+        <h2>Portfolio Optimizer</h2>
+        <p>
+          Generate random portfolios for three assets and find the max-Sharpe and minimum-volatility portfolios.
+          This is a simplified efficient frontier prototype.
+        </p>
+        <div class="controls">
+          <label>Asset A return <input id="retA" type="number" value="0.09" step="0.01"></label>
+          <label>Asset A vol <input id="volA" type="number" value="0.18" step="0.01"></label>
+          <label>Asset B return <input id="retB" type="number" value="0.06" step="0.01"></label>
+          <label>Asset B vol <input id="volB" type="number" value="0.10" step="0.01"></label>
+          <label>Asset C return <input id="retC" type="number" value="0.12" step="0.01"></label>
+          <label>Asset C vol <input id="volC" type="number" value="0.24" step="0.01"></label>
+        </div>
+        <button class="btn primary" id="runPortfolio">Generate frontier</button>
+        <div class="learn-box">
+          <h4>Business use case</h4>
+          <p>Useful as a prototype for allocation dashboards, investment committee tools, and internal portfolio analytics demos.</p>
+        </div>
+      </div>
+      <div class="sim-output">
+        <div class="terminal glass"><div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">portfolio_report</span></div><div id="portfolioOutput" class="output"></div></div>
+        <canvas id="frontierChart" width="620" height="260"></canvas>
+      </div>
+    </section>
+
+    <section id="backtest" class="section simulator glass">
+      <div class="sim-copy">
+        <p class="eyebrow">Simulator 04</p>
+        <h2>Strategy Backtester</h2>
+        <p>
+          Test a moving-average crossover strategy on a generated price path.
+          Change the windows and transaction cost to see how fragile strategy performance can be.
+        </p>
+        <div class="controls">
+          <label>Short MA <input id="shortMa" type="number" value="8"></label>
+          <label>Long MA <input id="longMa" type="number" value="21"></label>
+          <label>Transaction cost <input id="cost" type="number" value="0.001" step="0.0005"></label>
+          <label>Generated days <input id="days" type="number" value="260" step="20"></label>
+        </div>
+        <button class="btn primary" id="runBacktest">Run backtest</button>
+        <div class="learn-box">
+          <h4>Demand signal</h4>
+          <p>Students and junior quants want credible backtesting projects because they demonstrate modelling, coding, and analytical judgment.</p>
+        </div>
+      </div>
+      <div class="sim-output">
+        <div class="terminal glass"><div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">backtest_report</span></div><div id="backtestOutput" class="output"></div></div>
+        <canvas id="backtestChart" width="620" height="260"></canvas>
+      </div>
+    </section>
+
+    <section id="scenario" class="section simulator glass">
+      <div class="sim-copy">
+        <p class="eyebrow">Simulator 05</p>
+        <h2>Scenario Stress Simulator</h2>
+        <p>
+          Stress-test a portfolio by simulating future outcomes under different drift, volatility,
+          and shock assumptions.
+        </p>
+        <div class="controls">
+          <label>Initial value <input id="scInitial" type="number" value="100000"></label>
+          <label>Annual drift <input id="scDrift" type="number" value="0.07" step="0.01"></label>
+          <label>Annual vol <input id="scVol" type="number" value="0.20" step="0.01"></label>
+          <label>Years <input id="scYears" type="number" value="5" step="1"></label>
+          <label>Loss threshold % <input id="scLoss" type="number" value="20"></label>
+          <label>Paths <input id="scPaths" type="number" value="5000" step="1000"></label>
+        </div>
+        <button class="btn primary" id="runScenario">Simulate scenario</button>
+      </div>
+      <div class="sim-output">
+        <div class="terminal glass"><div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">scenario_report</span></div><div id="scenarioOutput" class="output"></div></div>
+        <canvas id="scenarioChart" width="620" height="260"></canvas>
+      </div>
+    </section>
+
+    <section id="learn" class="section learning glass">
+      <div>
+        <p class="eyebrow">C++ implementation layer</p>
+        <h2>How this becomes a serious C++ quant project</h2>
+        <p>
+          The website is the frontend demo. The portfolio-worthy version is a C++ analytics engine underneath it.
+          You can frame this as a full-stack quant toolkit: C++ for calculations, web UI for interaction.
+        </p>
+      </div>
+      <div class="code-grid">
+        <article>
+          <h3>Core modules</h3>
+          <pre><code>src/
+  returns.cpp
+  risk.cpp
+  black_scholes.cpp
+  monte_carlo.cpp
+  portfolio.cpp
+  backtester.cpp</code></pre>
+        </article>
+        <article>
+          <h3>Example C++ interface</h3>
+          <pre><code>struct RiskReport {
+  double annualVol;
+  double maxDrawdown;
+  double var95;
+  double cvar95;
+  std::string riskBand;
+};
+
+RiskReport analyzeRisk(
+  const std::vector&lt;double&gt;& prices
+);</code></pre>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Quant Simulator Hub — a multi-tool quantitative finance dashboard designed to feel useful, demoable, and portfolio-ready.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
