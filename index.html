@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C++ Quant Lab | Interactive Quantitative Finance Guide</title>
+  <meta name="description" content="An interactive C++ for quantitative analysis learning site with finance-focused modules, quizzes, simulations, and code patterns." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="orb orb-one"></div>
+  <div class="orb orb-two"></div>
+  <div class="orb orb-three"></div>
+
+  <nav class="nav glass">
+    <a class="brand" href="#top">
+      <span class="brand-mark">Q++</span>
+      <span>C++ Quant Lab</span>
+    </a>
+    <div class="nav-links">
+      <a href="#roadmap">Roadmap</a>
+      <a href="#cpp-core">C++ Core</a>
+      <a href="#finance">Finance</a>
+      <a href="#playground">Playground</a>
+      <a href="#publish">Publish</a>
+    </div>
+  </nav>
+
+  <header id="top" class="hero">
+    <section class="hero-copy">
+      <p class="eyebrow">Production-grade learning map</p>
+      <h1>Learn C++ like a quant: fast, precise, and market-aware.</h1>
+      <p class="hero-text">
+        A complete interactive guide to C++ fundamentals, modern C++ patterns, numerical methods,
+        portfolio analytics, option pricing, Monte Carlo simulation, and market-data engineering.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#roadmap">Start the roadmap</a>
+        <a class="btn secondary" href="#playground">Open the mini terminal</a>
+      </div>
+      <div class="signal-row">
+        <span>Low latency</span>
+        <span>Risk analytics</span>
+        <span>Monte Carlo</span>
+        <span>Modern C++</span>
+      </div>
+    </section>
+
+    <section class="hero-panel glass">
+      <div class="panel-top">
+        <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+        <span class="terminal-title">quant_engine.cpp</span>
+      </div>
+      <pre><code>#include &lt;vector&gt;
+#include &lt;numeric&gt;
+#include &lt;cmath&gt;
+
+double volatility(const std::vector&lt;double&gt;& r) {
+  double mean = std::accumulate(r.begin(), r.end(), 0.0) / r.size();
+  double sum = 0.0;
+
+  for (double x : r) {
+    sum += (x - mean) * (x - mean);
+  }
+
+  return std::sqrt(sum / (r.size() - 1));
+}</code></pre>
+      <div class="metric-strip">
+        <div><strong>O(n)</strong><span>single pass risk calc</span></div>
+        <div><strong>RAII</strong><span>safe resource handling</span></div>
+        <div><strong>STL</strong><span>clean quant workflows</span></div>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section id="roadmap" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Interactive roadmap</p>
+        <h2>Your C++ quant path</h2>
+        <p>Click each phase to expand what you need to master.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="phase glass active" data-phase="0">
+          <span class="phase-num">01</span>
+          <h3>C++ Foundations</h3>
+          <p>Syntax, variables, functions, references, memory, and compilation.</p>
+        </article>
+        <article class="phase glass" data-phase="1">
+          <span class="phase-num">02</span>
+          <h3>Modern C++</h3>
+          <p>STL, lambdas, smart pointers, RAII, templates, and error handling.</p>
+        </article>
+        <article class="phase glass" data-phase="2">
+          <span class="phase-num">03</span>
+          <h3>Numerical Finance</h3>
+          <p>Returns, volatility, correlations, Black-Scholes, Greeks, and VaR.</p>
+        </article>
+        <article class="phase glass" data-phase="3">
+          <span class="phase-num">04</span>
+          <h3>Quant Engineering</h3>
+          <p>Backtesting, market data, performance, testing, and deployment.</p>
+        </article>
+      </div>
+
+      <div class="phase-detail glass" id="phase-detail"></div>
+    </section>
+
+    <section id="cpp-core" class="section split">
+      <div class="sticky-card glass">
+        <p class="eyebrow">C++ core concepts</p>
+        <h2>What you need to know to actually code in C++</h2>
+        <p>
+          C++ rewards precision. You need to understand the language, the compiler,
+          memory ownership, and how to write code that is both fast and safe.
+        </p>
+      </div>
+
+      <div class="accordion" id="accordion">
+        <div class="acc-item open">
+          <button>1. Compilation model</button>
+          <div class="acc-content">
+            <p>C++ is compiled before it runs. You usually write <code>.cpp</code> files, include headers, compile with a compiler, then link into an executable.</p>
+            <pre><code>g++ -std=c++20 main.cpp -O2 -Wall -o quant_app
+./quant_app</code></pre>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button>2. Types and precision</button>
+          <div class="acc-content">
+            <p>Finance calculations usually use <code>double</code>, not <code>float</code>. Avoid integer division mistakes.</p>
+            <pre><code>double price = 101.25;
+double return_ = (105.00 - price) / price;</code></pre>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button>3. References, pointers, and memory</button>
+          <div class="acc-content">
+            <p>Use references for clean parameter passing, smart pointers for ownership, and avoid manual <code>new</code>/<code>delete</code> unless you truly need them.</p>
+            <pre><code>double mean(const std::vector&lt;double&gt;& values);</code></pre>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button>4. STL containers and algorithms</button>
+          <div class="acc-content">
+            <p>Use <code>std::vector</code>, <code>std::array</code>, <code>std::map</code>, <code>std::unordered_map</code>, and algorithms like <code>accumulate</code>, <code>sort</code>, and <code>transform</code>.</p>
+            <pre><code>std::sort(returns.begin(), returns.end());</code></pre>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button>5. Classes and models</button>
+          <div class="acc-content">
+            <p>Use classes to represent instruments, portfolios, pricing models, simulations, and data feeds.</p>
+            <pre><code>class Option {
+public:
+  double spot, strike, rate, vol, maturity;
+};</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="finance" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Finance modules</p>
+        <h2>Quantitative analysis with C++</h2>
+        <p>These are the finance-specific topics where C++ becomes especially valuable.</p>
+      </div>
+
+      <div class="cards">
+        <article class="module-card glass">
+          <span>01</span>
+          <h3>Return analytics</h3>
+          <p>Calculate simple returns, log returns, rolling returns, volatility, drawdown, beta, and correlation.</p>
+          <code>log_return = log(P_t / P_{t-1})</code>
+        </article>
+        <article class="module-card glass">
+          <span>02</span>
+          <h3>Portfolio optimization</h3>
+          <p>Build mean-variance portfolios, efficient frontiers, Sharpe ratio comparisons, and covariance matrices.</p>
+          <code>Sharpe = (R_p - R_f) / σ_p</code>
+        </article>
+        <article class="module-card glass">
+          <span>03</span>
+          <h3>Option pricing</h3>
+          <p>Implement Black-Scholes, binomial trees, Monte Carlo pricing, Greeks, and path-dependent options.</p>
+          <code>Call = S N(d1) - K e^{-rT} N(d2)</code>
+        </article>
+        <article class="module-card glass">
+          <span>04</span>
+          <h3>Risk management</h3>
+          <p>Compute VaR, CVaR, stress testing, scenario analysis, exposure, sensitivity, and factor risk.</p>
+          <code>VaR_95 = percentile(losses, 95)</code>
+        </article>
+        <article class="module-card glass">
+          <span>05</span>
+          <h3>Backtesting</h3>
+          <p>Model signals, positions, transaction costs, slippage, portfolio equity, and performance attribution.</p>
+          <code>position = signal.shift(1)</code>
+        </article>
+        <article class="module-card glass">
+          <span>06</span>
+          <h3>Performance engineering</h3>
+          <p>Use profiling, cache-friendly data layouts, move semantics, and compiler optimization flags.</p>
+          <code>-O3 -march=native</code>
+        </article>
+      </div>
+    </section>
+
+    <section id="playground" class="section playground glass">
+      <div>
+        <p class="eyebrow">Mini terminal</p>
+        <h2>Run a tiny quant calculation</h2>
+        <p>Enter comma-separated prices. The site calculates simple returns, average return, and volatility in JavaScript while showing the equivalent C++ logic.</p>
+        <textarea id="prices">100, 102, 101, 105, 107, 104, 110</textarea>
+        <div class="hero-actions">
+          <button class="btn primary" id="runCalc">Calculate</button>
+          <button class="btn secondary" id="copyCpp">Copy C++ snippet</button>
+        </div>
+      </div>
+      <div class="terminal glass">
+        <div class="panel-top">
+          <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+          <span class="terminal-title">output</span>
+        </div>
+        <div id="calcOutput" class="output"></div>
+      </div>
+    </section>
+
+    <section class="section quiz-section">
+      <div class="section-heading">
+        <p class="eyebrow">Checkpoint</p>
+        <h2>Quick C++ quant quiz</h2>
+      </div>
+      <div class="quiz glass">
+        <p id="question"></p>
+        <div id="answers"></div>
+        <button class="btn primary" id="nextQuestion">Next question</button>
+        <p id="quizFeedback"></p>
+      </div>
+    </section>
+
+    <section id="publish" class="section publish glass">
+      <p class="eyebrow">Publish it</p>
+      <h2>How to host this on GitHub Pages</h2>
+      <ol>
+        <li>Create a GitHub repository.</li>
+        <li>Upload <code>index.html</code>, <code>styles.css</code>, and <code>script.js</code>.</li>
+        <li>Go to <strong>Settings → Pages</strong>.</li>
+        <li>Under <strong>Build and deployment</strong>, choose <strong>Deploy from a branch</strong>.</li>
+        <li>Select <strong>main</strong> and <strong>/root</strong>, then save.</li>
+        <li>Your site will appear at <code>https://yourusername.github.io/repository-name/</code>.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>C++ Quant Lab — built for fast learning, finance projects, and portfolio-ready technical storytelling.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
