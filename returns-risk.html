@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Returns, Volatility, Drawdown, and Risk Metrics | C++ Quant Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="noise"></div><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="orb orb-three"></div>
+<nav class="nav glass"><a class="brand" href="index.html"><span class="brand-mark">Q++</span><span>C++ Quant Lab</span></a><div class="nav-links"><a href="index.html#lessons">Lessons</a><a href="#project">Project</a><a href="#quiz">Quiz</a></div></nav>
+
+<main class="textbook-layout">
+  <aside class="sidebar glass">
+    <a class="back" href="index.html">← Course home</a>
+    <p class="eyebrow">Lessons</p>
+    <a href="cpp-foundations.html">01. C++ Foundations for Quant Work</a>
+<a href="returns-risk.html">02. Returns, Volatility, Drawdown, and Risk Metrics</a>
+<a href="monte-carlo.html">03. Monte Carlo Simulation for Option Pricing</a>
+<a href="black-scholes-greeks.html">04. Black-Scholes and Greeks</a>
+<a href="var-cvar-backtesting.html">05. VaR, CVaR, and Backtesting</a>
+<a href="portfolio-optimization.html">06. Portfolio Optimization and Efficient Frontier</a>
+    <p class="eyebrow">Progress</p>
+    <strong class="progress-number">0%</strong>
+    <div class="progress"><div class="progress-fill"></div></div>
+  </aside>
+
+  <article>
+    <header class="lesson-hero glass">
+      <p class="eyebrow">Quant Tactics · Lesson 02</p>
+      <h1>Returns, Volatility, Drawdown, and Risk Metrics</h1>
+      <p class="hero-text">The measurement layer behind almost every quant workflow</p>
+      <div class="lesson-kicker"><span class="pill">Textbook lesson · 50–70 min</span><span class="pill">Core</span><span class="pill">Project-based</span><span class="pill">Quiz included</span></div>
+      <div class="lesson-grid">
+        <div>
+          <h4>Core formula / concept</h4>
+          <div class="formula-card"><div class="formula">\sigma = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(r_i - \bar r)^2}</div></div>
+          <div class="viz-card"><h4>Visual model: risk stack</h4><div class="flow"><span>Prices</span><span>Returns</span><span>Volatility</span><span>Drawdown</span><span>VaR / CVaR</span></div><p>Every metric depends on the quality and interpretation of the layer before it.</p></div>
+        </div>
+        <div>
+          <h4>Reference implementation pattern</h4>
+          <pre><code>double variance(const std::vector&lt;double&gt;&amp; returns) {
+    double m = mean(returns);
+    double sum = 0.0;
+
+    for (double r : returns) {
+        sum += (r - m) * (r - m);
+    }
+
+    return sum / (returns.size() - 1);
+}
+
+double volatility(const std::vector&lt;double&gt;&amp; returns) {
+    return std::sqrt(variance(returns));
+}</code></pre>
+        </div>
+      </div>
+    </header>
+
+    <section id="learning-objectives" class="chapter glass"><h3>Learning objectives</h3><ul><li>Convert prices into simple and log returns.</li><li>Compute mean return, sample variance, volatility, annualized volatility, and drawdown.</li><li>Understand the difference between price risk, return risk, and portfolio risk.</li><li>Build a reusable risk summary engine.</li></ul></section><section id="why-returns-are-the-base-unit" class="chapter glass"><h3>Why returns are the base unit</h3><p>Raw prices are not directly comparable across assets. A move from 100 to 105 and a move from 20 to 21 are both 5%, even though the dollar changes differ.</p><p>Returns normalize price changes and let you compare different assets, strategies, and portfolios.</p><p>Most quant metrics are built on returns: volatility, Sharpe ratio, beta, covariance, VaR, CVaR, drawdown, and strategy performance.</p></section><section id="simple-returns-vs-log-returns" class="chapter glass"><h3>Simple returns vs log returns</h3><p>Simple returns are intuitive and directly represent percentage gain or loss for one period.</p><p>Log returns are mathematically convenient because they add over time. If prices move from 100 to 105 to 110, the total log return equals the sum of the two period log returns.</p><p>For small daily moves, simple and log returns are usually close. For large moves, they differ more.</p></section><section id="volatility-as-dispersion" class="chapter glass"><h3>Volatility as dispersion</h3><p>Volatility measures how much returns vary around their mean. It is not direction; it is variability.</p><p>A high-volatility asset can have strong positive returns, strong negative returns, or both. Volatility alone does not tell you whether the investment was good.</p><p>Sample volatility divides by n-1, not n, because it estimates population variance from observed data.</p></section><section id="annualization" class="chapter glass"><h3>Annualization</h3><p>If your returns are daily, daily volatility can be annualized by multiplying by sqrt(252), assuming 252 trading days.</p><p>Mean returns are often annualized by multiplying daily mean by 252, but compounding is more accurate for longer horizons.</p><p>Always state frequency. A Sharpe ratio calculated from daily data must annualize both return and volatility consistently.</p></section><section id="drawdown" class="chapter glass"><h3>Drawdown</h3><p>Drawdown measures decline from a previous peak. It captures path pain better than volatility.</p><p>Two strategies can have the same volatility but very different drawdowns. A strategy with long slow losses can feel worse than a strategy with noisy but quickly recovering returns.</p><p>Max drawdown is the worst observed peak-to-trough decline in the sample.</p></section><section id="risk-reporting-mindset" class="chapter glass"><h3>Risk reporting mindset</h3><p>A good risk report does not show one number. It shows return, volatility, drawdown, tail loss, benchmark comparison, and assumptions.</p><p>In C++, build this as a RiskSummary struct so your code can return a clean bundle of metrics instead of printing everything from inside calculation functions.</p></section>
+
+    <section id="project" class="chapter glass">
+      <h3>Project: Risk Summary Engine</h3>
+      <p>This is the build task attached to the lesson. Treat it like a portfolio project: make it compile, test it with known inputs, and write down assumptions.</p>
+      <div class="lesson-grid">
+        <div>
+          <h4>Build steps</h4>
+          <ol class="project-steps"><li>Input a vector of prices.</li>
+<li>Compute simple returns and log returns.</li>
+<li>Compute average return, sample volatility, annualized volatility, best return, worst return.</li>
+<li>Compute running peak and max drawdown.</li>
+<li>Return all metrics inside a RiskSummary struct.</li>
+<li>Print the output as a clean terminal report.</li></ol>
+          <h4>Extensions</h4>
+          <ul><li>Add benchmark comparison.</li>
+<li>Add rolling 20-day volatility.</li>
+<li>Add rolling drawdown chart data.</li>
+<li>Export the summary to JSON.</li></ul>
+        </div>
+        <div class="project-card">
+          <h4>Progress checklist</h4>
+          <div class="checklist"><label><input class="progress-check" data-key="returns-risk-project-0" type="checkbox"><span>Input a vector of prices.</span></label>
+<label><input class="progress-check" data-key="returns-risk-project-1" type="checkbox"><span>Compute simple returns and log returns.</span></label>
+<label><input class="progress-check" data-key="returns-risk-project-2" type="checkbox"><span>Compute average return, sample volatility, annualized volatility, best return, worst return.</span></label>
+<label><input class="progress-check" data-key="returns-risk-project-3" type="checkbox"><span>Compute running peak and max drawdown.</span></label>
+<label><input class="progress-check" data-key="returns-risk-project-4" type="checkbox"><span>Return all metrics inside a RiskSummary struct.</span></label>
+<label><input class="progress-check" data-key="returns-risk-project-5" type="checkbox"><span>Print the output as a clean terminal report.</span></label></div>
+          <div class="callout"><strong>Portfolio note:</strong> Add a short README explaining the model, inputs, outputs, assumptions, and one limitation. That turns code into a stronger quant portfolio artifact.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="chapter glass">
+      <h3>Lesson quiz</h3>
+      <p>Use these checks to confirm you understood the lesson before moving to the next page.</p>
+      <div class="lesson-grid"><div class="quiz-card"><h4>Question 1</h4><p>What does volatility measure?</p><div class="quiz-options"><button class="quiz-option" data-correct="false">Average price</button>
+<button class="quiz-option" data-correct="true">Dispersion of returns</button>
+<button class="quiz-option" data-correct="false">Number of trades</button>
+<button class="quiz-option" data-correct="false">Only negative returns</button></div><p class="quiz-feedback"></p></div><div class="quiz-card"><h4>Question 2</h4><p>Why multiply daily volatility by sqrt(252)?</p><div class="quiz-options"><button class="quiz-option" data-correct="true">To annualize under a trading-day assumption</button>
+<button class="quiz-option" data-correct="false">To convert dollars to euros</button>
+<button class="quiz-option" data-correct="false">To remove risk</button>
+<button class="quiz-option" data-correct="false">To calculate dividends</button></div><p class="quiz-feedback"></p></div><div class="quiz-card"><h4>Question 3</h4><p>What does max drawdown measure?</p><div class="quiz-options"><button class="quiz-option" data-correct="true">Worst peak-to-trough decline</button>
+<button class="quiz-option" data-correct="false">Best daily return</button>
+<button class="quiz-option" data-correct="false">Average volume</button>
+<button class="quiz-option" data-correct="false">Option delta</button></div><p class="quiz-feedback"></p></div></div>
+    </section>
+  </article>
+</main>
+<footer>Lesson page · C++ Quant Lab</footer>
+<script src="script.js"></script>
+</body>
+</html>

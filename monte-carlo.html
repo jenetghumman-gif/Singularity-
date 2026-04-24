@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monte Carlo Simulation for Option Pricing | C++ Quant Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="noise"></div><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="orb orb-three"></div>
+<nav class="nav glass"><a class="brand" href="index.html"><span class="brand-mark">Q++</span><span>C++ Quant Lab</span></a><div class="nav-links"><a href="index.html#lessons">Lessons</a><a href="#project">Project</a><a href="#quiz">Quiz</a></div></nav>
+
+<main class="textbook-layout">
+  <aside class="sidebar glass">
+    <a class="back" href="index.html">← Course home</a>
+    <p class="eyebrow">Lessons</p>
+    <a href="cpp-foundations.html">01. C++ Foundations for Quant Work</a>
+<a href="returns-risk.html">02. Returns, Volatility, Drawdown, and Risk Metrics</a>
+<a href="monte-carlo.html">03. Monte Carlo Simulation for Option Pricing</a>
+<a href="black-scholes-greeks.html">04. Black-Scholes and Greeks</a>
+<a href="var-cvar-backtesting.html">05. VaR, CVaR, and Backtesting</a>
+<a href="portfolio-optimization.html">06. Portfolio Optimization and Efficient Frontier</a>
+    <p class="eyebrow">Progress</p>
+    <strong class="progress-number">0%</strong>
+    <div class="progress"><div class="progress-fill"></div></div>
+  </aside>
+
+  <article>
+    <header class="lesson-hero glass">
+      <p class="eyebrow">Models & Algorithms · Lesson 03</p>
+      <h1>Monte Carlo Simulation for Option Pricing</h1>
+      <p class="hero-text">Random paths, discounted payoffs, sampling error, and C++ implementation</p>
+      <div class="lesson-kicker"><span class="pill">Textbook lesson · 75–100 min</span><span class="pill">Intermediate</span><span class="pill">Project-based</span><span class="pill">Quiz included</span></div>
+      <div class="lesson-grid">
+        <div>
+          <h4>Core formula / concept</h4>
+          <div class="formula-card"><div class="formula">C_0 = e^{-rT}\,\mathbb{E}[\max(S_T - K, 0)]</div></div>
+          <div class="viz-card"><h4>Visual model: Monte Carlo flow</h4><div class="flow"><span>Set inputs S,K,r,σ,T</span><span>Draw random Z</span><span>Simulate S_T</span><span>Compute payoff</span><span>Discount average</span></div><p>The repeated loop is the model. Each path is weak alone; the distribution is the useful object.</p></div>
+        </div>
+        <div>
+          <h4>Reference implementation pattern</h4>
+          <pre><code>std::mt19937 gen(42);
+std::normal_distribution&lt;double&gt; normal(0.0, 1.0);
+
+for (int i = 0; i &lt; paths; ++i) {
+    double z = normal(gen);
+    double ST = S0 * std::exp((r - 0.5 * sigma * sigma) * T
+                + sigma * std::sqrt(T) * z);
+
+    double payoff = std::max(ST - K, 0.0);
+    payoff_sum += payoff;
+}
+
+double price = std::exp(-r * T) * payoff_sum / paths;</code></pre>
+        </div>
+      </div>
+    </header>
+
+    <section id="learning-objectives" class="chapter glass"><h3>Learning objectives</h3><ul><li>Understand Monte Carlo pricing as discounted expected payoff.</li><li>Simulate terminal prices under geometric Brownian motion.</li><li>Implement random number generation in C++ using mt19937 and normal_distribution.</li><li>Compute price estimates, standard error, and convergence behavior.</li><li>Know when Monte Carlo is useful and when closed-form formulas are better.</li></ul></section><section id="the-idea-behind-monte-carlo" class="chapter glass"><h3>The idea behind Monte Carlo</h3><p>Monte Carlo simulation replaces an impossible or complicated expectation with an average over many random scenarios.</p><p>For option pricing, each simulated scenario produces a possible future asset price. The option payoff is calculated for that scenario. The average payoff is discounted back to today.</p><p>The key insight: one path is meaningless, but thousands or millions of paths form an estimated distribution.</p></section><section id="risk-neutral-pricing-intuition" class="chapter glass"><h3>Risk-neutral pricing intuition</h3><p>Under the risk-neutral measure, expected asset growth uses the risk-free rate r rather than a subjective expected return.</p><p>This does not mean investors are risk-neutral in real life. It is a pricing technique that makes discounted expected payoff equal to theoretical option value under model assumptions.</p><p>For a European call, the payoff at maturity is max(S_T - K, 0). The present value is exp(-rT) times the expected payoff.</p></section><section id="geometric-brownian-motion" class="chapter glass"><h3>Geometric Brownian motion</h3><p>A common starting process is S_T = S0 exp((r - 0.5σ²)T + σ√T Z), where Z is a standard normal random variable.</p><p>The exponential form keeps simulated prices positive. The -0.5σ² term adjusts for lognormal dynamics.</p><p>This is the same underlying process used by the Black-Scholes model, which means a Monte Carlo European call price should converge toward the Black-Scholes price as paths increase.</p></section><section id="c-random-number-generation" class="chapter glass"><h3>C++ random number generation</h3><p>Use std::mt19937 as the generator and std::normal_distribution<double> for standard normal shocks.</p><p>Set a seed when you want reproducible results. For example, std::mt19937 gen(42).</p><p>For production-grade simulation, random-number quality, parallelization, variance reduction, and reproducibility become serious design topics.</p></section><section id="standard-error" class="chapter glass"><h3>Standard error</h3><p>Monte Carlo output is an estimate, not an exact value. Standard error measures uncertainty in that estimate.</p><p>If the payoff standard deviation is s and the number of paths is N, the standard error is approximately s / sqrt(N), then discounted by exp(-rT).</p><p>Increasing paths by 100x only reduces standard error by 10x. This square-root convergence is why Monte Carlo can be computationally expensive.</p></section><section id="when-monte-carlo-is-useful" class="chapter glass"><h3>When Monte Carlo is useful</h3><p>Monte Carlo is especially useful for path-dependent options, multi-asset payoffs, complex risk scenarios, and simulations where closed-form solutions are unavailable.</p><p>For a plain European call under Black-Scholes assumptions, the closed-form Black-Scholes formula is faster and exact under the model.</p><p>A good quant knows both: use closed-form formulas for speed and validation, use Monte Carlo for flexibility.</p></section>
+
+    <section id="project" class="chapter glass">
+      <h3>Project: Monte Carlo Pricing Engine</h3>
+      <p>This is the build task attached to the lesson. Treat it like a portfolio project: make it compile, test it with known inputs, and write down assumptions.</p>
+      <div class="lesson-grid">
+        <div>
+          <h4>Build steps</h4>
+          <ol class="project-steps"><li>Create a struct OptionParams with S0, K, r, sigma, T, and paths.</li>
+<li>Write simulate_terminal_price(params, generator).</li>
+<li>Write call_payoff(ST, K) and put_payoff(ST, K).</li>
+<li>Loop over paths and collect discounted payoffs.</li>
+<li>Compute average price and standard error.</li>
+<li>Compare output against Black-Scholes for a European call.</li></ol>
+          <h4>Extensions</h4>
+          <ul><li>Add antithetic variates.</li>
+<li>Add Asian option pricing using full paths.</li>
+<li>Add confidence intervals.</li>
+<li>Parallelize path simulation.</li></ul>
+        </div>
+        <div class="project-card">
+          <h4>Progress checklist</h4>
+          <div class="checklist"><label><input class="progress-check" data-key="monte-carlo-project-0" type="checkbox"><span>Create a struct OptionParams with S0, K, r, sigma, T, and paths.</span></label>
+<label><input class="progress-check" data-key="monte-carlo-project-1" type="checkbox"><span>Write simulate_terminal_price(params, generator).</span></label>
+<label><input class="progress-check" data-key="monte-carlo-project-2" type="checkbox"><span>Write call_payoff(ST, K) and put_payoff(ST, K).</span></label>
+<label><input class="progress-check" data-key="monte-carlo-project-3" type="checkbox"><span>Loop over paths and collect discounted payoffs.</span></label>
+<label><input class="progress-check" data-key="monte-carlo-project-4" type="checkbox"><span>Compute average price and standard error.</span></label>
+<label><input class="progress-check" data-key="monte-carlo-project-5" type="checkbox"><span>Compare output against Black-Scholes for a European call.</span></label></div>
+          <div class="callout"><strong>Portfolio note:</strong> Add a short README explaining the model, inputs, outputs, assumptions, and one limitation. That turns code into a stronger quant portfolio artifact.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="chapter glass">
+      <h3>Lesson quiz</h3>
+      <p>Use these checks to confirm you understood the lesson before moving to the next page.</p>
+      <div class="lesson-grid"><div class="quiz-card"><h4>Question 1</h4><p>What is Monte Carlo option price based on?</p><div class="quiz-options"><button class="quiz-option" data-correct="true">Discounted average payoff</button>
+<button class="quiz-option" data-correct="false">Largest simulated price only</button>
+<button class="quiz-option" data-correct="false">The first random path</button>
+<button class="quiz-option" data-correct="false">The strike only</button></div><p class="quiz-feedback"></p></div><div class="quiz-card"><h4>Question 2</h4><p>What happens to standard error when paths increase?</p><div class="quiz-options"><button class="quiz-option" data-correct="true">It usually decreases at a square-root rate</button>
+<button class="quiz-option" data-correct="false">It always doubles</button>
+<button class="quiz-option" data-correct="false">It becomes exactly zero</button>
+<button class="quiz-option" data-correct="false">It becomes the strike</button></div><p class="quiz-feedback"></p></div><div class="quiz-card"><h4>Question 3</h4><p>Why use a fixed random seed?</p><div class="quiz-options"><button class="quiz-option" data-correct="true">For reproducible results</button>
+<button class="quiz-option" data-correct="false">To remove volatility</button>
+<button class="quiz-option" data-correct="false">To guarantee profit</button>
+<button class="quiz-option" data-correct="false">To avoid compiling</button></div><p class="quiz-feedback"></p></div></div>
+    </section>
+  </article>
+</main>
+<footer>Lesson page · C++ Quant Lab</footer>
+<script src="script.js"></script>
+</body>
+</html>

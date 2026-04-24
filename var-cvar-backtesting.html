@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VaR, CVaR, and Backtesting | C++ Quant Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="noise"></div><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="orb orb-three"></div>
+<nav class="nav glass"><a class="brand" href="index.html"><span class="brand-mark">Q++</span><span>C++ Quant Lab</span></a><div class="nav-links"><a href="index.html#lessons">Lessons</a><a href="#project">Project</a><a href="#quiz">Quiz</a></div></nav>
+
+<main class="textbook-layout">
+  <aside class="sidebar glass">
+    <a class="back" href="index.html">← Course home</a>
+    <p class="eyebrow">Lessons</p>
+    <a href="cpp-foundations.html">01. C++ Foundations for Quant Work</a>
+<a href="returns-risk.html">02. Returns, Volatility, Drawdown, and Risk Metrics</a>
+<a href="monte-carlo.html">03. Monte Carlo Simulation for Option Pricing</a>
+<a href="black-scholes-greeks.html">04. Black-Scholes and Greeks</a>
+<a href="var-cvar-backtesting.html">05. VaR, CVaR, and Backtesting</a>
+<a href="portfolio-optimization.html">06. Portfolio Optimization and Efficient Frontier</a>
+    <p class="eyebrow">Progress</p>
+    <strong class="progress-number">0%</strong>
+    <div class="progress"><div class="progress-fill"></div></div>
+  </aside>
+
+  <article>
+    <header class="lesson-hero glass">
+      <p class="eyebrow">Risk & Strategy · Lesson 05</p>
+      <h1>VaR, CVaR, and Backtesting</h1>
+      <p class="hero-text">Tail risk, historical simulation, and strategy evaluation</p>
+      <div class="lesson-kicker"><span class="pill">Textbook lesson · 80–110 min</span><span class="pill">Applied</span><span class="pill">Project-based</span><span class="pill">Quiz included</span></div>
+      <div class="lesson-grid">
+        <div>
+          <h4>Core formula / concept</h4>
+          <div class="formula-card"><div class="formula">CVaR_{\alpha} = \mathbb{E}[L \mid L \ge VaR_{\alpha}]</div></div>
+          <div class="viz-card"><h4>Visual model: backtest pipeline</h4><div class="flow"><span>Data</span><span>Signal</span><span>Lagged position</span><span>Costs</span><span>Report</span></div><p>The signal is not the strategy. Execution, costs, and accounting decide whether the backtest is believable.</p></div>
+        </div>
+        <div>
+          <h4>Reference implementation pattern</h4>
+          <pre><code>std::sort(losses.begin(), losses.end());
+
+size_t var_index = static_cast&lt;size_t&gt;(confidence * losses.size());
+double var = losses[var_index];
+
+double tail_sum = 0.0;
+int tail_count = 0;
+
+for (double loss : losses) {
+    if (loss &gt;= var) {
+        tail_sum += loss;
+        ++tail_count;
+    }
+}
+
+double cvar = tail_sum / tail_count;</code></pre>
+        </div>
+      </div>
+    </header>
+
+    <section id="learning-objectives" class="chapter glass"><h3>Learning objectives</h3><ul><li>Calculate historical VaR and CVaR from portfolio returns.</li><li>Understand tail risk and sign conventions.</li><li>Build a backtesting architecture that avoids lookahead bias.</li><li>Evaluate a strategy using return, volatility, Sharpe, drawdown, turnover, and benchmark comparison.</li><li>Recognize the limitations of historical testing.</li></ul></section><section id="var-in-plain-language" class="chapter glass"><h3>VaR in plain language</h3><p>Value at Risk estimates a loss threshold over a given horizon and confidence level. A 95% one-day VaR of $10,000 means losses are expected to exceed $10,000 in roughly 5% of days under the historical/model assumptions.</p><p>VaR is easy to communicate, which is why it is widely used. But it does not tell you how bad losses can be beyond the threshold.</p><p>That weakness is why CVaR matters.</p></section><section id="cvar-expected-shortfall" class="chapter glass"><h3>CVaR / Expected Shortfall</h3><p>Conditional Value at Risk, also called Expected Shortfall, is the average loss in the tail beyond VaR.</p><p>If VaR says where the danger zone begins, CVaR estimates how severe the danger zone is on average.</p><p>CVaR is usually more informative for tail-risk analysis because it cares about the size of extreme losses.</p></section><section id="historical-simulation" class="chapter glass"><h3>Historical simulation</h3><p>Historical VaR uses actual past returns. Convert returns into portfolio profit/loss, sort the losses, and select the percentile threshold.</p><p>This is intuitive and easy to implement. However, it assumes the historical window is informative about future risk.</p><p>If the future regime differs from the past, historical VaR can be dangerously optimistic.</p></section><section id="backtesting-structure" class="chapter glass"><h3>Backtesting structure</h3><p>A backtest should be modular: data loader, indicator engine, signal generator, position manager, execution/cost model, portfolio accounting, and report generator.</p><p>Do not let strategy code directly mutate everything. Clear boundaries make bugs easier to catch.</p><p>A professional backtest is less about one clever signal and more about controlling false positives, bias, and hidden assumptions.</p></section><section id="lookahead-bias" class="chapter glass"><h3>Lookahead bias</h3><p>Lookahead bias happens when a backtest uses information that would not have been available at the time of the trade.</p><p>Example: calculating today's signal using today's close, then applying it to today's return. You only know today's close after the trading period ends.</p><p>The common fix is to lag the signal: position[t] = signal[t-1].</p></section><section id="transaction-costs-and-slippage" class="chapter glass"><h3>Transaction costs and slippage</h3><p>Ignoring costs can turn a weak strategy into a fake winner. Every position change should be charged a cost.</p><p>Slippage models the difference between theoretical execution price and realistic execution price.</p><p>High-turnover strategies are especially vulnerable to cost assumptions.</p></section><section id="strategy-evaluation" class="chapter glass"><h3>Strategy evaluation</h3><p>Report total return, annualized return, annualized volatility, Sharpe ratio, max drawdown, win rate, exposure, turnover, and benchmark relative performance.</p><p>Also report stability: performance by year, performance in drawdown periods, and sensitivity to parameter changes.</p><p>A strategy that only works for one exact parameter setting is probably overfit.</p></section>
+
+    <section id="project" class="chapter glass">
+      <h3>Project: Risk + Backtest Engine</h3>
+      <p>This is the build task attached to the lesson. Treat it like a portfolio project: make it compile, test it with known inputs, and write down assumptions.</p>
+      <div class="lesson-grid">
+        <div>
+          <h4>Build steps</h4>
+          <ol class="project-steps"><li>Load a price series and compute returns.</li>
+<li>Convert returns into losses for a fixed portfolio value.</li>
+<li>Calculate 95% and 99% VaR.</li>
+<li>Calculate 95% and 99% CVaR.</li>
+<li>Build a moving-average crossover signal.</li>
+<li>Lag the signal and compute strategy returns.</li>
+<li>Subtract transaction costs when position changes.</li>
+<li>Print risk and performance report.</li></ol>
+          <h4>Extensions</h4>
+          <ul><li>Add benchmark comparison.</li>
+<li>Add rolling VaR.</li>
+<li>Add stress scenario losses.</li>
+<li>Add parameter sweep for moving-average windows.</li></ul>
+        </div>
+        <div class="project-card">
+          <h4>Progress checklist</h4>
+          <div class="checklist"><label><input class="progress-check" data-key="var-cvar-backtesting-project-0" type="checkbox"><span>Load a price series and compute returns.</span></label>
+<label><input class="progress-check" data-key="var-cvar-backtesting-project-1" type="checkbox"><span>Convert returns into losses for a fixed portfolio value.</span></label>
+<label><input class="progress-check" data-key="var-cvar-backtesting-project-2" type="checkbox"><span>Calculate 95% and 99% VaR.</span></label>
+<label><input class="progress-check" data-key="var-cvar-backtesting-project-3" type="checkbox"><span>Calculate 95% and 99% CVaR.</span></label>
+<label><input class="progress-check" data-key="var-cvar-backtesting-project-4" type="checkbox"><span>Build a moving-average crossover signal.</span></label>
+<label><input class="progress-check" data-key="var-cvar-backtesting-project-5" type="checkbox"><span>Lag the signal and compute strategy returns.</span></label>
+<label><input class="progress-check" data-key="var-cvar-backtesting-project-6" type="checkbox"><span>Subtract transaction costs when position changes.</span></label>
+<label><input class="progress-check" data-key="var-cvar-backtesting-project-7" type="checkbox"><span>Print risk and performance report.</span></label></div>
+          <div class="callout"><strong>Portfolio note:</strong> Add a short README explaining the model, inputs, outputs, assumptions, and one limitation. That turns code into a stronger quant portfolio artifact.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="chapter glass">
+      <h3>Lesson quiz</h3>
+      <p>Use these checks to confirm you understood the lesson before moving to the next page.</p>
+      <div class="lesson-grid"><div class="quiz-card"><h4>Question 1</h4><p>What does CVaR measure?</p><div class="quiz-options"><button class="quiz-option" data-correct="true">Average loss beyond VaR</button>
+<button class="quiz-option" data-correct="false">Average price</button>
+<button class="quiz-option" data-correct="false">Best return</button>
+<button class="quiz-option" data-correct="false">Compiler speed</button></div><p class="quiz-feedback"></p></div><div class="quiz-card"><h4>Question 2</h4><p>What is lookahead bias?</p><div class="quiz-options"><button class="quiz-option" data-correct="true">Using future information in a backtest</button>
+<button class="quiz-option" data-correct="false">Using a vector</button>
+<button class="quiz-option" data-correct="false">Using adjusted close</button>
+<button class="quiz-option" data-correct="false">Using CMake</button></div><p class="quiz-feedback"></p></div><div class="quiz-card"><h4>Question 3</h4><p>Why include transaction costs?</p><div class="quiz-options"><button class="quiz-option" data-correct="true">To make backtests more realistic</button>
+<button class="quiz-option" data-correct="false">To guarantee profits</button>
+<button class="quiz-option" data-correct="false">To remove volatility</button>
+<button class="quiz-option" data-correct="false">To compile faster</button></div><p class="quiz-feedback"></p></div></div>
+    </section>
+  </article>
+</main>
+<footer>Lesson page · C++ Quant Lab</footer>
+<script src="script.js"></script>
+</body>
+</html>

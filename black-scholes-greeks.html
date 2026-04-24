@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Black-Scholes and Greeks | C++ Quant Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="noise"></div><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="orb orb-three"></div>
+<nav class="nav glass"><a class="brand" href="index.html"><span class="brand-mark">Q++</span><span>C++ Quant Lab</span></a><div class="nav-links"><a href="index.html#lessons">Lessons</a><a href="#project">Project</a><a href="#quiz">Quiz</a></div></nav>
+
+<main class="textbook-layout">
+  <aside class="sidebar glass">
+    <a class="back" href="index.html">← Course home</a>
+    <p class="eyebrow">Lessons</p>
+    <a href="cpp-foundations.html">01. C++ Foundations for Quant Work</a>
+<a href="returns-risk.html">02. Returns, Volatility, Drawdown, and Risk Metrics</a>
+<a href="monte-carlo.html">03. Monte Carlo Simulation for Option Pricing</a>
+<a href="black-scholes-greeks.html">04. Black-Scholes and Greeks</a>
+<a href="var-cvar-backtesting.html">05. VaR, CVaR, and Backtesting</a>
+<a href="portfolio-optimization.html">06. Portfolio Optimization and Efficient Frontier</a>
+    <p class="eyebrow">Progress</p>
+    <strong class="progress-number">0%</strong>
+    <div class="progress"><div class="progress-fill"></div></div>
+  </aside>
+
+  <article>
+    <header class="lesson-hero glass">
+      <p class="eyebrow">Models & Algorithms · Lesson 04</p>
+      <h1>Black-Scholes and Greeks</h1>
+      <p class="hero-text">Closed-form option pricing and sensitivity analysis</p>
+      <div class="lesson-kicker"><span class="pill">Textbook lesson · 70–90 min</span><span class="pill">Intermediate</span><span class="pill">Project-based</span><span class="pill">Quiz included</span></div>
+      <div class="lesson-grid">
+        <div>
+          <h4>Core formula / concept</h4>
+          <div class="formula-card"><div class="formula">C = S N(d_1) - K e^{-rT} N(d_2)</div></div>
+          <div class="viz-card"><h4>Visual model: Greeks map</h4><div class="flow"><span>S changes → Delta</span><span>Delta changes → Gamma</span><span>σ changes → Vega</span><span>T changes → Theta</span><span>r changes → Rho</span></div><p>Greeks turn one option price into a risk profile.</p></div>
+        </div>
+        <div>
+          <h4>Reference implementation pattern</h4>
+          <pre><code>double norm_cdf(double x) {
+    return 0.5 * std::erfc(-x / std::sqrt(2.0));
+}
+
+double call_price(double S, double K, double r, double sigma, double T) {
+    double d1 = (std::log(S / K) + (r + 0.5 * sigma * sigma) * T)
+                / (sigma * std::sqrt(T));
+    double d2 = d1 - sigma * std::sqrt(T);
+
+    return S * norm_cdf(d1) - K * std::exp(-r * T) * norm_cdf(d2);
+}</code></pre>
+        </div>
+      </div>
+    </header>
+
+    <section id="learning-objectives" class="chapter glass"><h3>Learning objectives</h3><ul><li>Understand each Black-Scholes input and assumption.</li><li>Implement a European call and put pricer in C++.</li><li>Compute Delta, Gamma, Vega, Theta, and Rho conceptually and numerically.</li><li>Use finite differences to validate analytical sensitivities.</li><li>Understand how Greeks support hedging and risk management.</li></ul></section><section id="what-black-scholes-does" class="chapter glass"><h3>What Black-Scholes does</h3><p>Black-Scholes gives a theoretical price for European options under specific assumptions: lognormal asset prices, constant volatility, constant risk-free rate, frictionless markets, and no early exercise.</p><p>It is not a universal truth machine. It is a model. Its value comes from speed, interpretability, and the ability to compare market prices against theoretical assumptions.</p><p>In C++, Black-Scholes is a perfect first pricing model because it is compact, testable, and connects directly to Monte Carlo.</p></section><section id="inputs" class="chapter glass"><h3>Inputs</h3><p>S is the current underlying price. K is the strike. r is the continuously compounded risk-free rate. sigma is volatility. T is time to maturity in years.</p><p>The most dangerous beginner mistake is mixing units. If volatility is annualized, T must be in years. If T is in days, convert it using T = days / 365 or a chosen day-count convention.</p><p>Rates and volatility should be decimals, not percentages. Use 0.05 for 5% and 0.20 for 20%.</p></section><section id="d1-and-d2-intuition" class="chapter glass"><h3>d1 and d2 intuition</h3><p>d1 and d2 compress moneyness, volatility, time, and rate effects into standardized values.</p><p>d1 is related to Delta for a call. d2 appears in the probability-weighted discounted strike component.</p><p>You do not need to memorize intuition perfectly at first. Implement carefully, then test heavily.</p></section><section id="greeks" class="chapter glass"><h3>Greeks</h3><p>Delta measures sensitivity to the underlying price. Gamma measures how Delta changes. Vega measures sensitivity to volatility. Theta measures time decay. Rho measures sensitivity to rates.</p><p>Greeks are not just textbook metrics. They are the language of options risk. A trader may not only ask whether a book is profitable, but whether it is long gamma, short vega, or exposed to time decay.</p><p>In code, Greeks can be implemented analytically or through finite differences. Finite differences are slower but are extremely useful for validation.</p></section><section id="finite-differences" class="chapter glass"><h3>Finite differences</h3><p>A finite-difference Delta bumps S up and down by a small h and calculates (price_up - price_down) / (2h).</p><p>This technique generalizes. Bump volatility to estimate Vega, time to estimate Theta, and rate to estimate Rho.</p><p>Choose bump sizes carefully. Too large gives approximation error; too small can create numerical noise.</p></section><section id="validation" class="chapter glass"><h3>Validation</h3><p>Validate your Black-Scholes function against known examples, online calculators, or a trusted Python implementation.</p><p>Then validate Monte Carlo against Black-Scholes. If Monte Carlo with many paths is far away from Black-Scholes under the same assumptions, your simulation probably has an error.</p><p>This cross-model validation is a real quant engineering practice.</p></section>
+
+    <section id="project" class="chapter glass">
+      <h3>Project: Options Pricing Console</h3>
+      <p>This is the build task attached to the lesson. Treat it like a portfolio project: make it compile, test it with known inputs, and write down assumptions.</p>
+      <div class="lesson-grid">
+        <div>
+          <h4>Build steps</h4>
+          <ol class="project-steps"><li>Implement norm_cdf using std::erfc.</li>
+<li>Implement call_price and put_price.</li>
+<li>Add put-call parity check.</li>
+<li>Implement finite-difference Delta and Vega.</li>
+<li>Print a table of option prices across strikes.</li>
+<li>Print Greeks across different maturities.</li></ol>
+          <h4>Extensions</h4>
+          <ul><li>Add implied volatility solver using bisection.</li>
+<li>Add implied-volatility smile table.</li>
+<li>Compare analytical Delta with finite-difference Delta.</li>
+<li>Export results to CSV for plotting.</li></ul>
+        </div>
+        <div class="project-card">
+          <h4>Progress checklist</h4>
+          <div class="checklist"><label><input class="progress-check" data-key="black-scholes-greeks-project-0" type="checkbox"><span>Implement norm_cdf using std::erfc.</span></label>
+<label><input class="progress-check" data-key="black-scholes-greeks-project-1" type="checkbox"><span>Implement call_price and put_price.</span></label>
+<label><input class="progress-check" data-key="black-scholes-greeks-project-2" type="checkbox"><span>Add put-call parity check.</span></label>
+<label><input class="progress-check" data-key="black-scholes-greeks-project-3" type="checkbox"><span>Implement finite-difference Delta and Vega.</span></label>
+<label><input class="progress-check" data-key="black-scholes-greeks-project-4" type="checkbox"><span>Print a table of option prices across strikes.</span></label>
+<label><input class="progress-check" data-key="black-scholes-greeks-project-5" type="checkbox"><span>Print Greeks across different maturities.</span></label></div>
+          <div class="callout"><strong>Portfolio note:</strong> Add a short README explaining the model, inputs, outputs, assumptions, and one limitation. That turns code into a stronger quant portfolio artifact.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="chapter glass">
+      <h3>Lesson quiz</h3>
+      <p>Use these checks to confirm you understood the lesson before moving to the next page.</p>
+      <div class="lesson-grid"><div class="quiz-card"><h4>Question 1</h4><p>Which options does basic Black-Scholes directly price?</p><div class="quiz-options"><button class="quiz-option" data-correct="true">European options</button>
+<button class="quiz-option" data-correct="false">American options with early exercise</button>
+<button class="quiz-option" data-correct="false">Only barrier options</button>
+<button class="quiz-option" data-correct="false">Only bonds</button></div><p class="quiz-feedback"></p></div><div class="quiz-card"><h4>Question 2</h4><p>Which Greek measures volatility sensitivity?</p><div class="quiz-options"><button class="quiz-option" data-correct="false">Delta</button>
+<button class="quiz-option" data-correct="false">Gamma</button>
+<button class="quiz-option" data-correct="true">Vega</button>
+<button class="quiz-option" data-correct="false">Rho</button></div><p class="quiz-feedback"></p></div><div class="quiz-card"><h4>Question 3</h4><p>What is a finite difference used for?</p><div class="quiz-options"><button class="quiz-option" data-correct="true">Approximating sensitivity by bumping inputs</button>
+<button class="quiz-option" data-correct="false">Deleting files</button>
+<button class="quiz-option" data-correct="false">Removing risk</button>
+<button class="quiz-option" data-correct="false">Changing HTML</button></div><p class="quiz-feedback"></p></div></div>
+    </section>
+  </article>
+</main>
+<footer>Lesson page · C++ Quant Lab</footer>
+<script src="script.js"></script>
+</body>
+</html>

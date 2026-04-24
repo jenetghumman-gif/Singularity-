@@ -1,182 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>C++ Quant Lab | Interactive Learning Platform</title>
-  <meta name="description" content="A detailed interactive learning platform for C++ quantitative finance, with lessons, progress tracking, quizzes, and simulation projects." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C++ Quant Lab | Textbook Learning Site</title>
+  <meta name="description" content="A textbook-level interactive C++ quantitative finance learning site with lessons, visualizations, quizzes, projects, and simulations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <div class="noise"></div>
-  <div class="orb orb-one"></div>
-  <div class="orb orb-two"></div>
-  <div class="orb orb-three"></div>
+<div class="noise"></div><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="orb orb-three"></div>
+<nav class="nav glass"><a class="brand" href="index.html"><span class="brand-mark">Q++</span><span>C++ Quant Lab</span></a><div class="nav-links"><a href="#lessons">Lessons</a><a href="#labs">Labs</a><a href="#structure">Structure</a></div></nav>
 
-  <nav class="nav glass">
-    <a class="brand" href="#top">
-      <span class="brand-mark">Q++</span>
-      <span>C++ Quant Lab</span>
-    </a>
-    <div class="nav-links">
-      <a href="#roadmap">C++ Roadmap</a>
-      <a href="#tactics">Quant Tactics</a>
-      <a href="#algorithms">Models</a>
-      <a href="#terminal">Terminal</a>
+<header class="hero">
+  <section>
+    <p class="eyebrow">Textbook-level interactive course</p>
+    <h1>C++ Quant Lab, rebuilt as a real learning site.</h1>
+    <p class="hero-text">This version is structured like a digital textbook: separate lesson pages, long-form explanations, formulas, code, visual diagrams, interactive labs, quizzes, progress tracking, and project roadmaps. It is designed to teach both general C++ and C++ for quantitative analysis, not just summarize it.</p>
+    <div class="hero-actions"><a class="btn primary" href="#lessons">Start lessons</a><a class="btn secondary" href="monte-carlo.html">Jump to Monte Carlo</a></div>
+    <div class="signal-row"><span>6 textbook lessons</span><span>3 interactive labs</span><span>progress tracking</span><span>quizzes</span><span>project builds</span></div>
+  </section>
+  <section class="hero-panel glass">
+    <div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">course_progress</span></div>
+    <pre><code>Track 01: General C++
+  - foundations
+  - memory and vectors
+  - project engineering
+
+Track 02: Quant tactics
+  - returns and risk
+  - VaR / CVaR
+  - backtesting
+
+Track 03: Models & algorithms
+  - Monte Carlo
+  - Black-Scholes
+  - Greeks
+  - portfolio optimization</code></pre>
+    <div class="metric-strip"><div><strong class="progress-number">0%</strong><span>saved progress</span></div><div><strong>6</strong><span>long lessons</span></div><div><strong>18+</strong><span>project tasks</span></div></div>
+    <div class="progress"><div class="progress-fill"></div></div>
+  </section>
+</header>
+
+<main>
+<section id="lessons" class="section">
+  <div class="section-heading"><p class="eyebrow">Course library</p><h2>Open a full lesson</h2><p>Each page includes deep explanations, step-by-step implementation guidance, diagrams, formulas, quizzes, and a project roadmap.</p></div>
+  <div class="grid">
+<article class="card glass">
+  <span class="card-num">01</span>
+  <p class="eyebrow">C++ Core · Beginner</p>
+  <h3>C++ Foundations for Quant Work</h3>
+  <p>From first program to reliable numerical functions</p>
+  <div class="card-footer">
+    <span class="pill">Textbook lesson · 35–50 min</span>
+    <a class="link-btn" href="cpp-foundations.html">Open lesson</a>
+  </div>
+</article>
+
+
+<article class="card glass">
+  <span class="card-num">02</span>
+  <p class="eyebrow">Quant Tactics · Core</p>
+  <h3>Returns, Volatility, Drawdown, and Risk Metrics</h3>
+  <p>The measurement layer behind almost every quant workflow</p>
+  <div class="card-footer">
+    <span class="pill">Textbook lesson · 50–70 min</span>
+    <a class="link-btn" href="returns-risk.html">Open lesson</a>
+  </div>
+</article>
+
+
+<article class="card glass">
+  <span class="card-num">03</span>
+  <p class="eyebrow">Models & Algorithms · Intermediate</p>
+  <h3>Monte Carlo Simulation for Option Pricing</h3>
+  <p>Random paths, discounted payoffs, sampling error, and C++ implementation</p>
+  <div class="card-footer">
+    <span class="pill">Textbook lesson · 75–100 min</span>
+    <a class="link-btn" href="monte-carlo.html">Open lesson</a>
+  </div>
+</article>
+
+
+<article class="card glass">
+  <span class="card-num">04</span>
+  <p class="eyebrow">Models & Algorithms · Intermediate</p>
+  <h3>Black-Scholes and Greeks</h3>
+  <p>Closed-form option pricing and sensitivity analysis</p>
+  <div class="card-footer">
+    <span class="pill">Textbook lesson · 70–90 min</span>
+    <a class="link-btn" href="black-scholes-greeks.html">Open lesson</a>
+  </div>
+</article>
+
+
+<article class="card glass">
+  <span class="card-num">05</span>
+  <p class="eyebrow">Risk & Strategy · Applied</p>
+  <h3>VaR, CVaR, and Backtesting</h3>
+  <p>Tail risk, historical simulation, and strategy evaluation</p>
+  <div class="card-footer">
+    <span class="pill">Textbook lesson · 80–110 min</span>
+    <a class="link-btn" href="var-cvar-backtesting.html">Open lesson</a>
+  </div>
+</article>
+
+
+<article class="card glass">
+  <span class="card-num">06</span>
+  <p class="eyebrow">Models & Algorithms · Intermediate</p>
+  <h3>Portfolio Optimization and Efficient Frontier</h3>
+  <p>Weights, covariance matrices, Sharpe ratio, and random portfolio search</p>
+  <div class="card-footer">
+    <span class="pill">Textbook lesson · 80–120 min</span>
+    <a class="link-btn" href="portfolio-optimization.html">Open lesson</a>
+  </div>
+</article>
+</div>
+</section>
+
+<section id="labs" class="section lab-section glass">
+  <div>
+    <p class="eyebrow">Interactive lab 01</p><h2>Return and volatility calculator</h2>
+    <p>Use this to connect the textbook concepts to live calculations. Enter a price series, then inspect returns, sample volatility, annualized volatility, and drawdown.</p>
+    <textarea id="prices">100, 102, 101, 105, 107, 104, 110</textarea>
+    <div class="hero-actions"><button class="btn primary" id="runCalc">Calculate</button></div>
+  </div>
+  <div class="terminal glass"><div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">risk_output</span></div><div id="calcOutput" class="output"></div></div>
+</section>
+
+<section class="section lab-section glass">
+  <div>
+    <p class="eyebrow">Interactive lab 02</p><h2>Monte Carlo option pricer</h2>
+    <p>Simulate European call prices and compare the result to Black-Scholes under the same assumptions.</p>
+    <div class="controls">
+      <label>Spot S₀ <input id="mcSpot" type="number" value="100"></label>
+      <label>Strike K <input id="mcStrike" type="number" value="105"></label>
+      <label>Rate r <input id="mcRate" type="number" value="0.05" step="0.01"></label>
+      <label>Volatility σ <input id="mcVol" type="number" value="0.22" step="0.01"></label>
+      <label>Maturity T <input id="mcTime" type="number" value="1" step="0.25"></label>
+      <label>Paths <input id="mcPaths" type="number" value="20000" step="1000"></label>
     </div>
-  </nav>
+    <button class="btn primary" id="runMonteCarlo">Run Monte Carlo</button>
+  </div>
+  <div class="terminal glass"><div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">mc_output</span></div><div id="mcOutput" class="output"></div></div>
+</section>
 
-  <header id="top" class="hero">
-    <section class="hero-copy">
-      <p class="eyebrow">Interactive quant learning system</p>
-      <h1>Master C++ for quantitative finance, one model at a time.</h1>
-      <p class="hero-text">
-        This is a detailed learning site built like a quant training lab: expandable lessons,
-        multi-step breakdowns, quizzes inside every module, progress tracking, and practical projects
-        that move from C++ basics into real financial modelling.
-      </p>
-      <div class="hero-actions">
-        <a class="btn primary" href="#roadmap">Start C++ Track</a>
-        <a class="btn secondary" href="#algorithms">Open Model Library</a>
-      </div>
-      <div class="signal-row">
-        <span>Modern C++</span>
-        <span>Monte Carlo</span>
-        <span>Black-Scholes</span>
-        <span>VaR / CVaR</span>
-        <span>Backtesting</span>
-      </div>
-    </section>
-
-    <section class="hero-panel glass">
-      <div class="panel-top">
-        <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
-        <span class="terminal-title">simulation_engine.cpp</span>
-      </div>
-      <pre><code>#include &lt;random&gt;
-#include &lt;cmath&gt;
-
-double simulate_terminal_price(
-  double S0, double r, double sigma,
-  double T, std::mt19937& gen
-) {
-  std::normal_distribution&lt;double&gt; Z(0.0, 1.0);
-  return S0 * std::exp(
-    (r - 0.5 * sigma * sigma) * T
-    + sigma * std::sqrt(T) * Z(gen)
-  );
-}</code></pre>
-
-      <div class="metric-strip">
-        <div><strong id="overallProgress">0%</strong><span>course progress</span></div>
-        <div><strong>18</strong><span>deep lessons</span></div>
-        <div><strong>9</strong><span>projects/simulations</span></div>
-      </div>
-    </section>
-  </header>
-
-  <main>
-    <section id="roadmap" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">Track 01</p>
-        <h2>General C++ roadmap</h2>
-        <p>
-          Each phase opens into a detailed lesson with steps, code, checkpoints, a quiz, and a linked project.
-          Complete the checkboxes to track your learning progress.
-        </p>
-      </div>
-      <div class="track-grid" id="cppTrack"></div>
-    </section>
-
-    <section id="tactics" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">Track 02</p>
-        <h2>Quantitative analysis tactics with C++</h2>
-        <p>
-          This track focuses on the practical workflow: market data, return analytics, portfolio metrics,
-          risk measurement, and backtesting structure.
-        </p>
-      </div>
-      <div class="track-grid" id="tacticsTrack"></div>
-    </section>
-
-    <section id="algorithms" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">Track 03</p>
-        <h2>Common quant models and algorithms</h2>
-        <p>
-          A finance model library with step-by-step implementation notes for Monte Carlo, Black-Scholes,
-          Greeks, binomial trees, VaR, CVaR, portfolio optimization, stochastic processes, and signal backtesting.
-        </p>
-      </div>
-      <div class="track-grid" id="algorithmTrack"></div>
-    </section>
-
-    <section id="simulations" class="section lab-section glass">
-      <div class="lab-copy">
-        <p class="eyebrow">Interactive simulator</p>
-        <h2>Monte Carlo option pricing lab</h2>
-        <p>
-          Adjust the parameters and run a simplified Monte Carlo call option estimate in the browser.
-          This mirrors the C++ logic you would build with <code>std::mt19937</code>, <code>std::normal_distribution</code>,
-          and repeated simulated terminal prices.
-        </p>
-
-        <div class="controls">
-          <label>Spot price S₀ <input id="mcSpot" type="number" value="100"></label>
-          <label>Strike K <input id="mcStrike" type="number" value="105"></label>
-          <label>Risk-free rate r <input id="mcRate" type="number" value="0.05" step="0.01"></label>
-          <label>Volatility σ <input id="mcVol" type="number" value="0.22" step="0.01"></label>
-          <label>Maturity T <input id="mcTime" type="number" value="1" step="0.25"></label>
-          <label>Paths <input id="mcPaths" type="number" value="10000" step="1000"></label>
-        </div>
-
-        <button class="btn primary" id="runMonteCarlo">Run Monte Carlo</button>
-      </div>
-
-      <div class="terminal glass">
-        <div class="panel-top">
-          <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
-          <span class="terminal-title">monte_carlo_output</span>
-        </div>
-        <div id="mcOutput" class="output"></div>
-      </div>
-    </section>
-
-    <section id="terminal" class="section lab-section glass">
-      <div class="lab-copy">
-        <p class="eyebrow">Mini terminal</p>
-        <h2>Return and volatility calculator</h2>
-        <p>
-          Enter comma-separated prices. The calculator converts them into simple returns,
-          then estimates average return and sample volatility. This is the starting point for
-          risk analytics, portfolio comparison, and backtesting metrics.
-        </p>
-        <textarea id="prices">100, 102, 101, 105, 107, 104, 110</textarea>
-        <div class="hero-actions">
-          <button class="btn primary" id="runCalc">Calculate</button>
-          <button class="btn secondary" id="copyCpp">Copy C++ snippet</button>
-        </div>
-      </div>
-
-      <div class="terminal glass">
-        <div class="panel-top">
-          <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
-          <span class="terminal-title">risk_output</span>
-        </div>
-        <div id="calcOutput" class="output"></div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>C++ Quant Lab — an interactive learning platform for quantitative finance, simulation, risk, and model implementation.</p>
-  </footer>
-
-  <script src="script.js"></script>
+<section id="structure" class="section lab-section glass">
+  <div>
+    <p class="eyebrow">Interactive lab 03</p><h2>Portfolio frontier approximation</h2>
+    <p>Generate random portfolios for three simplified assets and identify the minimum-volatility and maximum-Sharpe combinations.</p>
+    <button class="btn primary" id="runFrontier">Generate portfolios</button>
+  </div>
+  <div class="terminal glass"><div class="panel-top"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span><span class="terminal-title">frontier_output</span></div><div id="frontierOutput" class="output"></div></div>
+</section>
+</main>
+<footer>Built as a publishable multi-page course site. Replace your current GitHub Pages files with this version.</footer>
+<script src="script.js"></script>
 </body>
 </html>
